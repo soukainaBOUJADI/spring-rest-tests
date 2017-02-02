@@ -33,6 +33,15 @@ public class TransactionService {
 		this.accountService = accountService;
 		this.transactionRepository = transactionRepository;
 	}
+	
+	public Page<Transaction> addTranaction(Transaction tr){
+		return this.transactionRepository.addTransaction(tr);
+	}
+	
+	public Page<Transaction> removeTransaction(String id, String accountId){
+		
+		return this.transactionRepository.removeTransaction(id, accountId);
+	}
 
 	/**
 	 * Get transactions by account
@@ -67,5 +76,7 @@ public class TransactionService {
 		result.setNumber(transaction.getNumber());
 		return result;
 	}
+	
+	
 
 }

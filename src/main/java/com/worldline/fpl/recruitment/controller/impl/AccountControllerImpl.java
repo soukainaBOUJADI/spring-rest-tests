@@ -2,6 +2,8 @@ package com.worldline.fpl.recruitment.controller.impl;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.worldline.fpl.recruitment.StartBoot;
 import com.worldline.fpl.recruitment.controller.AccountController;
 import com.worldline.fpl.recruitment.json.AccountDetailsResponse;
 import com.worldline.fpl.recruitment.json.AccountResponse;
@@ -26,6 +29,8 @@ import com.worldline.fpl.recruitment.service.AccountService;
 @RestController
 public class AccountControllerImpl implements AccountController {
 
+	private static final Logger log = LoggerFactory.getLogger(StartBoot.class);
+	
 	private AccountService accountService;
 
 	@Autowired

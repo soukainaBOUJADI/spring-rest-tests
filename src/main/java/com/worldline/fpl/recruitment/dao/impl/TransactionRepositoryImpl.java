@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.domain.Page;
@@ -62,5 +63,17 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 				.filter(t -> t.getAccountId().equals(accountId))
 				.collect(Collectors.toList()));
 	}
+
+	@Override
+	public Page<Transaction> removeTransaction(String id,String accountId) {
+		
+		
+	return new PageImpl<Transaction>(transactions.stream()
+					.filter(t -> !(t.getId().equals(id) && t.getAccountId().equals(accountId)))
+					.collect(Collectors.toList()));
+		
+	}
+
+
 
 }

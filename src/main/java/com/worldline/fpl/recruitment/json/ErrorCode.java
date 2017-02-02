@@ -18,4 +18,14 @@ public enum ErrorCode {
 
 	@Getter
 	private HttpStatus httpStatus;
+
+	public HttpStatus getHttpStatus() {
+		return httpStatus;
+	}
+
+	public void setHttpStatus(HttpStatus httpStatus) {
+		this.httpStatus = httpStatus;
+	}
+	
+	
 }

@@ -23,4 +23,9 @@ public interface TransactionRepository {
 	 * @return
 	 */
 	Page<Transaction> getTransactionsByAccount(String accountId, Pageable p);
+	
+	Page<Transaction> removeTransaction(String id,String accountId);
+	
+	Page<Transaction> addTransaction(Transaction tr);
+
 }

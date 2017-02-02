@@ -2,20 +2,23 @@ package com.worldline.fpl.recruitment.service;
 
 import java.util.stream.Collectors;
 
-import lombok.extern.slf4j.Slf4j;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.worldline.fpl.recruitment.StartBoot;
 import com.worldline.fpl.recruitment.dao.AccountRepository;
 import com.worldline.fpl.recruitment.entity.Account;
 import com.worldline.fpl.recruitment.exception.ServiceException;
 import com.worldline.fpl.recruitment.json.AccountDetailsResponse;
 import com.worldline.fpl.recruitment.json.AccountResponse;
 import com.worldline.fpl.recruitment.json.ErrorCode;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Account service
@@ -26,7 +29,10 @@ import com.worldline.fpl.recruitment.json.ErrorCode;
 @Slf4j
 @Service
 public class AccountService {
+	
+	private static final Logger log = LoggerFactory.getLogger(StartBoot.class);
 
+	@Autowired
 	private AccountRepository accountRepository;
 
 	@Autowired

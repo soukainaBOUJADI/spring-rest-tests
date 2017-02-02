@@ -11,9 +11,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.worldline.fpl.recruitment.entity.Transaction;
 import com.worldline.fpl.recruitment.json.ErrorResponse;
 import com.worldline.fpl.recruitment.json.TransactionResponse;
 
@@ -43,5 +45,18 @@ public interface TransactionController {
 	ResponseEntity<Page<TransactionResponse>> getTransactionsByAccount(
 			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
 			@ApiParam("Pageable information") @PageableDefault Pageable p);
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@ApiResponses({
+		@ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class),
+		@ApiResponse(code = 204, message = "No transactions", response = ErrorResponse.class) })
+	Page<Transaction> removeTransaction( @PathVariable("id") String id ,  @PathVariable("accountId") String accountId);
+	
+	@RequestMapping(value = "/add", method = RequestMethod.DELETE)
+	@ApiResponses({
+		@ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class),
+		@ApiResponse(code = 204, message = "No transactions", response = ErrorResponse.class) })
+	Page<Transaction> addTransaction (@RequestBody Transaction t);
+	
 
 }

@@ -28,4 +28,14 @@ public class ServiceException extends RuntimeException {
 		this.errorCode = errorCode;
 		this.message = message;
 	}
+
+	public ErrorCode getErrorCode() {
+		return errorCode;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+	
+	
 }

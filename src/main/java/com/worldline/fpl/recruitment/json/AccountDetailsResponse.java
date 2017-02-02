@@ -34,4 +34,22 @@ public class AccountDetailsResponse extends AccountResponse implements
 	@NotNull
 	@ApiModelProperty(value = "Activation status of the account", required = true)
 	private boolean active;
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
+	
 }

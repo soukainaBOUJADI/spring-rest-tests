@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.validation.constraints.NotNull;
 
@@ -29,5 +30,37 @@ public class TransactionResponse extends AbstractTransaction implements
 	@NotNull
 	@ApiModelProperty(value = "ID", required = true)
 	private String id;
+	
+	private BigDecimal balance; 
+	
+	private String number;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	
+	
+	
+	
 
 }

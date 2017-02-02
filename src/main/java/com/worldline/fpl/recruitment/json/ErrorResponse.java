@@ -21,6 +21,7 @@ import lombok.Data;
 @ApiModel(value = "ErrorResponse", description = "Error resource representation")
 public class ErrorResponse implements Serializable {
 
+
 	private static final long serialVersionUID = 4372672070020226566L;
 
 	@NotNull
