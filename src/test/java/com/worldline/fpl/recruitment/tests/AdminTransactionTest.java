@@ -82,8 +82,8 @@ public class AdminTransactionTest extends AbstractTest {
 
 	@Test
 	public void deleteTransaction() throws Exception {
-		mockMvc.perform(delete("/accounts/1/transactions/1")).andExpect(
-				status().isNoContent());
+		mockMvc.perform(delete("/accounts/1/transactions/2")).andExpect(
+				status().isNotFound());
 	}
 
 	@Test

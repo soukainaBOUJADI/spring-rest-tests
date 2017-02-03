@@ -2,9 +2,9 @@ package com.worldline.fpl.recruitment.dao.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.domain.Page;
@@ -22,8 +22,7 @@ import com.worldline.fpl.recruitment.entity.Transaction;
  *
  */
 @Repository
-public class TransactionRepositoryImpl implements TransactionRepository,
-		InitializingBean {
+public class TransactionRepositoryImpl implements TransactionRepository, InitializingBean {
 
 	private List<Transaction> transactions;
 
@@ -57,23 +56,42 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 	}
 
 	@Override
-	public Page<Transaction> getTransactionsByAccount(String accountId,
-			Pageable p) {
-		return new PageImpl<Transaction>(transactions.stream()
-				.filter(t -> t.getAccountId().equals(accountId))
-				.collect(Collectors.toList()));
+	public Page<Transaction> getTransactionsByAccount(String accountId, Pageable p) {
+		return new PageImpl<Transaction>(
+				transactions.stream().filter(t -> t.getAccountId().equals(accountId)).collect(Collectors.toList()));
 	}
 
 	@Override
-	public Page<Transaction> removeTransaction(String id,String accountId) {
-		
-		
-	return new PageImpl<Transaction>(transactions.stream()
-					.filter(t -> !(t.getId().equals(id) && t.getAccountId().equals(accountId)))
-					.collect(Collectors.toList()));
-		
+	public String removeTransaction(String id, String accountId) {
+		boolean exist = false;
+		if (transactions.isEmpty()) {
+			return "NO_CONTENT";
+		} else {
+			Iterator<Transaction> tr = transactions.iterator();
+			while (tr.hasNext()) {
+				Transaction t = tr.next();
+
+				if (t.getId().equals(id) && t.getAccountId().equals(accountId)) {
+					tr.remove();
+					exist = true;
+					break;
+				}
+
+			}
+		}
+		if (exist) {
+			return "OK";
+		}else{
+			return "NOT_FOUND";
+		}
+
+
 	}
 
-
+	@Override
+	public Page<Transaction> addTransaction(Transaction tr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

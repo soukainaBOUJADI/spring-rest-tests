@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class AccountService {
 	
-	private static final Logger log = LoggerFactory.getLogger(StartBoot.class);
+	private static final Logger log = LoggerFactory.getLogger(AccountService.class);
 
 	@Autowired
 	private AccountRepository accountRepository;

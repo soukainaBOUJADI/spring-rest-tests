@@ -38,7 +38,7 @@ public class TransactionService {
 		return this.transactionRepository.addTransaction(tr);
 	}
 	
-	public Page<Transaction> removeTransaction(String id, String accountId){
+	public String removeTransaction(String id, String accountId){
 		
 		return this.transactionRepository.removeTransaction(id, accountId);
 	}

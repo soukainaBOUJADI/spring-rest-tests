@@ -50,12 +50,11 @@ public interface TransactionController {
 	@ApiResponses({
 		@ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class),
 		@ApiResponse(code = 204, message = "No transactions", response = ErrorResponse.class) })
-	Page<Transaction> removeTransaction( @PathVariable("id") String id ,  @PathVariable("accountId") String accountId);
+	ResponseEntity<Transaction> removeTransaction( @PathVariable("id") String id ,  @PathVariable("accountId") String accountId);
 	
 	@RequestMapping(value = "/add", method = RequestMethod.DELETE)
 	@ApiResponses({
-		@ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class),
-		@ApiResponse(code = 204, message = "No transactions", response = ErrorResponse.class) })
+		@ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class)})
 	Page<Transaction> addTransaction (@RequestBody Transaction t);
 	
 

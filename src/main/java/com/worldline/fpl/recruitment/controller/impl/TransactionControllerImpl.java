@@ -53,8 +53,18 @@ public class TransactionControllerImpl implements TransactionController {
 	}
 
 	@Override
-	public Page<Transaction> removeTransaction(@PathVariable("id") String id, @PathVariable("accountId") String accountId) {
-		return this.transactionService.removeTransaction(id, accountId);
+	public ResponseEntity<Transaction> removeTransaction(@PathVariable("id") String id, @PathVariable("accountId") String accountId) {
+		String result = this.transactionService.removeTransaction(id, accountId);
+		
+		if("NO_CONTENT".equals(result)){
+			return  ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+		}else if("NOT_FOUND".equals(result)){
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}else if("OK".equals(result)){
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+		}else{
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+		}
 	}
 	
 	public Page<Transaction> addTransaction(@RequestBody Transaction t){
