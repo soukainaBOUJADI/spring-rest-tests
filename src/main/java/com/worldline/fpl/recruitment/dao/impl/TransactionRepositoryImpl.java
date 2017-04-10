@@ -53,6 +53,14 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 			transaction.setNumber("12151885122");
 			transactions.add(transaction);
 		}
+		{
+			Transaction transaction = new Transaction();
+			transaction.setAccountId("1");
+			transaction.setBalance(BigDecimal.valueOf(-12.12));
+			transaction.setId("4");
+			transaction.setNumber("12151885122");
+			transactions.add(transaction);
+		}
 	}
 
 	@Override
@@ -63,4 +71,22 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 				.collect(Collectors.toList()));
 	}
 
+	@Override
+	public void deleteTransactionByAccount(String accountId,
+			String transactionId) {		
+		transactions.removeIf(t -> t.getAccountId().equals(accountId)
+				&& t.getId().equals(transactionId));
+	}
+
+	@Override
+	public boolean exists(String transactionId) {
+		return transactions.stream().anyMatch(t -> t.getId().equals(transactionId));
+	}
+
+	@Override
+	public boolean transactionBelongToAccount(String accountId,
+			String transactionId) {
+		return transactions.stream().anyMatch(t ->  t.getAccountId().equals(accountId)
+				&& t.getId().equals(transactionId));
+	}
 }

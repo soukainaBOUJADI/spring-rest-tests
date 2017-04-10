@@ -43,5 +43,22 @@ public interface TransactionController {
 	ResponseEntity<Page<TransactionResponse>> getTransactionsByAccount(
 			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
 			@ApiParam("Pageable information") @PageableDefault Pageable p);
+	
+	/**
+	 * Removes the transactions by account.
+	 *
+	 * @param accountId the account id
+	 * @param transactionId the transaction id
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/{transactionId}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "remove transaction related to an account", response = Void.class)
+	@ApiResponses({
+		    @ApiResponse(code = 404, message = "Transaction not Found Or Account not found", response = ErrorResponse.class),
+			@ApiResponse(code = 403, message = "Transaction not belong to the account", response = ErrorResponse.class),
+			})
+	ResponseEntity<Void> deleteTransactionsByAccount(
+			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
+			@ApiParam("Transaction ID") @PathVariable("transactionId") String transactionId);
 
 }

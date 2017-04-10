@@ -14,8 +14,10 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
 
-	INVALID_ACCOUNT(HttpStatus.NOT_FOUND);
-
+	INVALID_ACCOUNT(HttpStatus.NOT_FOUND),
+	INVALID_TRANSACTION(HttpStatus.NOT_FOUND),
+	TRANSACTION_NOT_BELONG_TO_ACCOUNT(HttpStatus.FORBIDDEN);
+	
 	@Getter
 	private HttpStatus httpStatus;
 }

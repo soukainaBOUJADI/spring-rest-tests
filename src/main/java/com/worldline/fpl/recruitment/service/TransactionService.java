@@ -54,6 +54,30 @@ public class TransactionService {
 				.map(this::map).collect(Collectors.toList()));
 	}
 
+	
+	/**
+	 * Delete transaction by account.
+	 *
+	 * @param accountId the account id
+	 * @param transactionId the transaction id
+	 */
+	public void deleteTransactionByAccount(String accountId,String transactionId) {
+		if (!accountService.isAccountExist(accountId)) {
+			throw new ServiceException(ErrorCode.INVALID_ACCOUNT,
+					"Account doesn't exist");
+		}
+		if (!transactionRepository.exists(transactionId)) {
+			throw new ServiceException(ErrorCode.INVALID_TRANSACTION,
+					"Transaction doesn't exist");
+		}
+		if (!transactionRepository.transactionBelongToAccount(accountId,transactionId)) {
+			throw new ServiceException(ErrorCode.TRANSACTION_NOT_BELONG_TO_ACCOUNT,
+					"transaction not belong to the account");
+		}
+		transactionRepository.deleteTransactionByAccount(accountId, transactionId);
+	}
+	
+	
 	/**
 	 * Map {@link Transaction} to {@link TransactionResponse}
 	 * 
