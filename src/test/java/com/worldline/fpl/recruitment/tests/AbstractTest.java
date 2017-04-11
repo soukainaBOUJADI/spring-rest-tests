@@ -33,4 +33,5 @@ public abstract class AbstractTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
 				.build();
 	}
+	
 }

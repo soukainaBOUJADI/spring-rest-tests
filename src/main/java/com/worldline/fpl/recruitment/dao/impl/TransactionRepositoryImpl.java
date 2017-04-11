@@ -56,9 +56,9 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 		{
 			Transaction transaction = new Transaction();
 			transaction.setAccountId("1");
-			transaction.setBalance(BigDecimal.valueOf(-12.12));
+			transaction.setBalance(BigDecimal.valueOf(-14.14));
 			transaction.setId("4");
-			transaction.setNumber("12151885122");
+			transaction.setNumber("12151885144");
 			transactions.add(transaction);
 		}
 	}
@@ -89,4 +89,23 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 		return transactions.stream().anyMatch(t ->  t.getAccountId().equals(accountId)
 				&& t.getId().equals(transactionId));
 	}
+	
+	
+	@Override
+	public Transaction save(Transaction transaction) {
+		transaction.setId(getIdOfNewTransaction());	
+		transactions.add(transaction);
+		return transaction;
+	}
+	
+	/**
+	 * Get the id of new transaction.
+	 *
+	 * @return the id of new transaction
+	 */
+	private String getIdOfNewTransaction(){
+		return Integer.toString(transactions.size()+1);
+	}
+	
+
 }

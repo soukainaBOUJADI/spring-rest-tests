@@ -1,8 +1,12 @@
 package com.worldline.fpl.recruitment.tests;
 
+import static org.hamcrest.Matchers.is;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
@@ -98,6 +102,19 @@ public class AdminTransactionTest extends AbstractTest {
 				status().isNotFound());
 	}
 
+	
+	@Test
+	public void addTransactionOnUnexistingAccount() throws Exception {
+		String request = getRequest("createOk");
+
+		mockMvc.perform(
+				post("/accounts/3/transactions/").contentType(
+						MediaType.APPLICATION_JSON).content(request))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.errorCode", is("INVALID_ACCOUNT")));	
+	}
+
+	
 	/**
 	 * Get json request from test file
 	 * 

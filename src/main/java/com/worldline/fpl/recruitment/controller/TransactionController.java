@@ -11,9 +11,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.worldline.fpl.recruitment.entity.Transaction;
 import com.worldline.fpl.recruitment.json.ErrorResponse;
 import com.worldline.fpl.recruitment.json.TransactionResponse;
 
@@ -60,5 +62,25 @@ public interface TransactionController {
 	ResponseEntity<Void> deleteTransactionsByAccount(
 			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
 			@ApiParam("Transaction ID") @PathVariable("transactionId") String transactionId);
+	
+
+	
+	/**
+	 * Add the transaction to account.
+	 *
+	 * @param accountId the account id
+	 * @param transaction the transaction
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	@ApiOperation(value = "save transaction related to an account", response = TransactionResponse.class)
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class),
+			@ApiResponse(code = 400, message = "Invalid Transaction", response = ErrorResponse.class)})
+	ResponseEntity<TransactionResponse> addTransactionToAccount(
+			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
+			@ApiParam("Transaction") @RequestBody Transaction transaction);
+	
+	
 
 }

@@ -57,4 +57,14 @@ public interface TransactionRepository {
 	 * 				if successful
 	 */
 	boolean transactionBelongToAccount(String accountId, String transactionId);
+	
+	/**
+	 * Save the transaction.
+	 *
+	 * @param transaction 
+	 * 			the transaction
+	 * @return
+	 * 		    the transaction
+	 */
+	Transaction save(Transaction transaction);
 }

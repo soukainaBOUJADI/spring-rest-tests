@@ -1,13 +1,18 @@
 package com.worldline.fpl.recruitment.tests;
 
 import static org.hamcrest.Matchers.is;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.IOException;
+import java.io.StringWriter;
+
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+import org.springframework.http.MediaType;
 
 /**
  * Account test
@@ -65,5 +70,31 @@ public class AccountTest extends AbstractTest {
 				.andExpect(status().isForbidden())
 				.andExpect(jsonPath("$.errorCode", is("TRANSACTION_NOT_BELONG_TO_ACCOUNT")));	
 	}
+	
+	@Test
+	public void addTransactionOnUnexistingAccount() throws Exception {
+		String request = getRequest("createOk");
 
+		mockMvc.perform(
+				post("/accounts/3/transactions/").contentType(
+						MediaType.APPLICATION_JSON).content(request))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.errorCode", is("INVALID_ACCOUNT")));	
+	}
+
+
+	/** 
+	 * Get json request from test file
+	 * 
+	 * @param name
+	 *            the filename
+	 * @return the request
+	 * @throws IOException
+	 */
+	private String getRequest(String name) throws IOException {
+		StringWriter writer = new StringWriter();
+		IOUtils.copy(Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("json/" + name + ".json"), writer);
+		return writer.toString();
+	}
 }

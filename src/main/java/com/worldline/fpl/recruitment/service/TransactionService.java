@@ -77,6 +77,33 @@ public class TransactionService {
 		transactionRepository.deleteTransactionByAccount(accountId, transactionId);
 	}
 	
+	/**
+	 * Save.
+	 *
+	 * @param accountId the account id
+	 * @param transaction the transaction
+	 * @return the transaction response
+	 */
+	public TransactionResponse addTransactionToAccount(String accountId, Transaction transaction){
+		
+		if (!accountService.isAccountExist(accountId)) {
+			throw new ServiceException(ErrorCode.INVALID_ACCOUNT,
+					"The id account "+accountId+" doesn't exist");
+		}
+		if(transaction.getBalance() == null){
+			throw new ServiceException(ErrorCode.INVALID_REQUEST,
+					"Balance attribute must not be null");
+		}
+		if(transaction.getNumber() == null){
+			throw new ServiceException(ErrorCode.INVALID_REQUEST,
+					"Number attribute must not be null");
+		}
+		
+		transaction.setAccountId(accountId);
+		return map(transactionRepository.save(transaction));
+		
+	}
+	
 	
 	/**
 	 * Map {@link Transaction} to {@link TransactionResponse}
