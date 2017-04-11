@@ -24,7 +24,7 @@ public class AccountResponse implements Serializable {
 
 	@NotNull
 	@ApiModelProperty(value = "ID", required = true)
-	private String id;
+	private Long id;
 
 	@NotNull
 	@ApiModelProperty(value = "Number", required = true)

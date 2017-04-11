@@ -43,9 +43,11 @@ public interface TransactionController {
 			@ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class),
 			@ApiResponse(code = 204, message = "No transactions", response = ErrorResponse.class) })
 	ResponseEntity<Page<TransactionResponse>> getTransactionsByAccount(
-			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
+			@ApiParam("Account ID") @PathVariable("accountId") Long accountId,
 			@ApiParam("Pageable information") @PageableDefault Pageable p);
 	
+	
+	/* *************************************************************************************************************************************** */
 	/**
 	 * Removes the transactions by account.
 	 *
@@ -60,13 +62,13 @@ public interface TransactionController {
 			@ApiResponse(code = 403, message = "Transaction not belong to the account", response = ErrorResponse.class),
 			})
 	ResponseEntity<Void> deleteTransactionsByAccount(
-			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
-			@ApiParam("Transaction ID") @PathVariable("transactionId") String transactionId);
+			@ApiParam("Account ID") @PathVariable("accountId") Long accountId,
+			@ApiParam("Transaction ID") @PathVariable("transactionId") Long transactionId);
 	
-
+	
 	
 	/**
-	 * Add the transaction to account.
+	 * Save transaction.
 	 *
 	 * @param accountId the account id
 	 * @param transaction the transaction
@@ -77,12 +79,12 @@ public interface TransactionController {
 	@ApiResponses({
 			@ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class),
 			@ApiResponse(code = 400, message = "Invalid Transaction", response = ErrorResponse.class)})
-	ResponseEntity<TransactionResponse> addTransactionToAccount(
-			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
+	ResponseEntity<TransactionResponse> saveTransaction(
+			@ApiParam("Account ID") @PathVariable("accountId") Long accountId,
 			@ApiParam("Transaction") @RequestBody Transaction transaction);
 	
 	
-
+	
 	/**
 	 * Update transaction.
 	 *
@@ -92,15 +94,16 @@ public interface TransactionController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/{transactionId}", method = RequestMethod.PUT)
-	@ApiOperation(value = "update transaction related to an account", response = Void.class)
+	@ApiOperation(value = "update transaction related to an account", response = TransactionResponse.class)
 	@ApiResponses({
 		    @ApiResponse(code = 404, message = "Transaction not Found Or Account not found", response = ErrorResponse.class),
 			@ApiResponse(code = 400, message = "Invalid Transaction", response = ErrorResponse.class),
 			@ApiResponse(code = 403, message = "Transaction not belong to the account", response = ErrorResponse.class),})
-	ResponseEntity<Void> updateTransaction(
-			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
-			@ApiParam("Transaction ID") @PathVariable("transactionId") String transactionId,
+	ResponseEntity<TransactionResponse> updateTransaction(
+			@ApiParam("Account ID") @PathVariable("accountId") Long accountId,
+			@ApiParam("Transaction ID") @PathVariable("transactionId") Long transactionId,
 			@ApiParam("Transaction") @RequestBody Transaction transaction);
 	
 	
+	/* *************************************************************************************************************************************** */
 }

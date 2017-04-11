@@ -1,5 +1,6 @@
 package com.worldline.fpl.recruitment.service;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
@@ -54,10 +55,21 @@ public class AccountService {
 	 *            the account id
 	 * @return true if the account exists
 	 */
-	public boolean isAccountExist(String accountId) {
+	public boolean isAccountExist(Long accountId) {
 		return accountRepository.exists(accountId);
 	}
 
+	
+	/**
+	 * Find by id.
+	 *
+	 * @param accountId the account id
+	 * @return the optional
+	 */
+	public Account findAccountById(Long accountId){
+		return accountRepository.findOne(accountId);
+	}
+	
 	/**
 	 * Get account details
 	 * 
@@ -65,9 +77,9 @@ public class AccountService {
 	 *            the account id
 	 * @return
 	 */
-	public AccountDetailsResponse getAccountDetails(String accountId) {
+	public AccountDetailsResponse getAccountDetails(Long accountId) {
 		log.debug("Find account {}", accountId);
-		Account account = accountRepository.findById(accountId).orElseThrow(
+		Account account = Optional.ofNullable(accountRepository.findOne(accountId)).orElseThrow(
 				() -> new ServiceException(ErrorCode.INVALID_ACCOUNT,
 						"Account doesn't exist"));
 		return mapToAccountDetailsResponse(account);

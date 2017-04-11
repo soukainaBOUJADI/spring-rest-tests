@@ -2,6 +2,7 @@ package com.worldline.fpl.recruitment.controller.impl;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ import com.worldline.fpl.recruitment.service.AccountService;
 public class AccountControllerImpl implements AccountController {
 
 	private AccountService accountService;
-
+	  
 	@Autowired
 	public AccountControllerImpl(AccountService accountService) {
 		this.accountService = accountService;
@@ -46,7 +47,7 @@ public class AccountControllerImpl implements AccountController {
 
 	@Override
 	public ResponseEntity<AccountDetailsResponse> getAccountDetails(
-			@PathVariable("accountId") String accountId) {
+			@PathVariable("accountId") Long accountId) {
 		return ResponseEntity.ok().body(
 				accountService.getAccountDetails(accountId));
 	}

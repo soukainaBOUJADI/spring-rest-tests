@@ -13,6 +13,7 @@
 	<properties>
 		<swagger-version>1.5.7</swagger-version>
 		<java-version>1.8</java-version>
+		<version.hsqldb>1.8.0.10</version.hsqldb>
 	</properties>
 
 	<dependencies>
@@ -28,6 +29,17 @@
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 
+	    <!--Adds support for spring data and JPA -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+ 
+         <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${version.hsqldb}</version>
+        </dependency>
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -62,6 +74,15 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

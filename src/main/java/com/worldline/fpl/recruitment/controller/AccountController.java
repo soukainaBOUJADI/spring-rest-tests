@@ -1,6 +1,9 @@
 package com.worldline.fpl.recruitment.controller;
 
 import io.swagger.annotations.ApiOperation;
+
+
+
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -51,6 +54,6 @@ public interface AccountController {
 	@ApiOperation(value = "Get account details", response = AccountDetailsResponse.class)
 	@ApiResponses({ @ApiResponse(code = 404, message = "Account not found", response = ErrorResponse.class) })
 	ResponseEntity<AccountDetailsResponse> getAccountDetails(
-			@ApiParam("Account") @PathVariable("accountId") String accountId);
+			@ApiParam("Account") @PathVariable("accountId") Long accountId);
 
 }

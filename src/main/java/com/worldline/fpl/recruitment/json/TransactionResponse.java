@@ -28,6 +28,6 @@ public class TransactionResponse extends AbstractTransaction implements
 
 	@NotNull
 	@ApiModelProperty(value = "ID", required = true)
-	private String id;
+	private Long id;
 
 }

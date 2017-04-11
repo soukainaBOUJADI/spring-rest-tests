@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.worldline.fpl.recruitment.controller.TransactionController;
 import com.worldline.fpl.recruitment.entity.Transaction;
+import com.worldline.fpl.recruitment.exception.ServiceException;
 import com.worldline.fpl.recruitment.json.TransactionResponse;
+import com.worldline.fpl.recruitment.service.ExceptionHandlerService;
 import com.worldline.fpl.recruitment.service.TransactionService;
 
 /**
@@ -29,14 +31,15 @@ public class TransactionControllerImpl implements TransactionController {
 
 	private TransactionService transactionService;
 
+
 	@Autowired
-	public TransactionControllerImpl(TransactionService transactionService) {
+	public TransactionControllerImpl(TransactionService transactionService ,ExceptionHandlerService exceptionService ) {
 		this.transactionService = transactionService;
 	}
 
 	@Override
 	public ResponseEntity<Page<TransactionResponse>> getTransactionsByAccount(
-			@PathVariable("accountId") String accountId,
+			@PathVariable("accountId") Long accountId,
 			@PageableDefault Pageable p) {
 		Page<TransactionResponse> page = transactionService
 				.getTransactionsByAccount(accountId, p);
@@ -46,35 +49,56 @@ public class TransactionControllerImpl implements TransactionController {
 		}
 		return ResponseEntity.ok().body(page);
 	}
-	
+
+	/* *************************************************************************************************************************************** */
 	@Override
 	public ResponseEntity<Void> deleteTransactionsByAccount(
-			@PathVariable("accountId") 	String accountId,
-			@PathVariable("transactionId")  String transactionId) {
-	
+			@PathVariable("accountId") 	Long accountId,
+			@PathVariable("transactionId")  Long transactionId) {
+
 		this.transactionService.deleteTransactionByAccount(accountId, transactionId);
-		
+
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
 
 	@Override
-	public ResponseEntity<TransactionResponse> addTransactionToAccount(
-			@PathVariable("accountId") String accountId,
+	public ResponseEntity<TransactionResponse> saveTransaction(
+			@PathVariable("accountId") Long accountId,
 			@RequestBody Transaction transaction)  {
 
-		TransactionResponse createdTransaction = this.transactionService.addTransactionToAccount(accountId, transaction);
+		TransactionResponse  createdTransaction;
+
+		try{
+			createdTransaction = this.transactionService.save(accountId, transaction);
+
+		}catch(ServiceException ex){
+
+			throw new ServiceException(ex.getErrorCode(),  ex.getMessage());
+		}	
+
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdTransaction);
 	}
-	
+
 	@Override
-	public ResponseEntity<Void> updateTransaction(
-			@PathVariable String accountId,@PathVariable String transactionId, 
+	public ResponseEntity<TransactionResponse> updateTransaction(
+			@PathVariable Long accountId,@PathVariable Long transactionId, 
 			@RequestBody Transaction transaction) {
 		
-			this.transactionService.update(accountId, transactionId, transaction);
+			TransactionResponse updatedTransaction ;
+
+			try{
+				updatedTransaction = this.transactionService.update(accountId, transactionId, transaction);
 		
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+			}catch(ServiceException ex){
+
+				throw new ServiceException(ex.getErrorCode(),  ex.getMessage());
+			}	
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedTransaction);
 		}
+
+		
+
+	/* *************************************************************************************************************************************** */
 
 }

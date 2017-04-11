@@ -1,6 +1,10 @@
 spring:
   application:
     name: recruitment
+  jpa:
+    hibernate:
+     hbm2ddl.auto: create
+     show-sql: true
 
 server:
   port: 8080
@@ -9,3 +13,5 @@ server:
 logging:
   level:
     com.worldline.fpl.recruitment=DEBUG
+    
+ 
