@@ -24,15 +24,13 @@ public interface TransactionRepository {
 	 */
 	Page<Transaction> getTransactionsByAccount(String accountId, Pageable p);
 	
+
 	/**
 	 * Delete transaction by account.
 	 *
-	 * @param accountId 
-	 *            the account id
-	 * @param transactionId 
-	 *            the transaction id
+	 * @param transactionId the transaction id
 	 */
-	void deleteTransactionByAccount(String accountId, String transactionId);
+	void deleteTransactionByAccount(String transactionId);
 
 	
 	/**

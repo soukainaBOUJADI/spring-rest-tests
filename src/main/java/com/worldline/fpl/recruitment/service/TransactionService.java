@@ -74,7 +74,7 @@ public class TransactionService {
 			throw new ServiceException(ErrorCode.TRANSACTION_NOT_BELONG_TO_ACCOUNT,
 					"transaction not belong to the account");
 		}
-		transactionRepository.deleteTransactionByAccount(accountId, transactionId);
+		transactionRepository.deleteTransactionByAccount(transactionId);
 	}
 	
 	/**

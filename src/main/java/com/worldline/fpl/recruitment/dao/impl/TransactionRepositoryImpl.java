@@ -58,7 +58,7 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 			transaction.setAccountId("1");
 			transaction.setBalance(BigDecimal.valueOf(-14.14));
 			transaction.setId("4");
-			transaction.setNumber("12151885144");
+			transaction.setNumber("12151885123");
 			transactions.add(transaction);
 		}
 	}
@@ -72,10 +72,8 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 	}
 
 	@Override
-	public void deleteTransactionByAccount(String accountId,
-			String transactionId) {		
-		transactions.removeIf(t -> t.getAccountId().equals(accountId)
-				&& t.getId().equals(transactionId));
+	public void deleteTransactionByAccount(String transactionId) {		
+		transactions.removeIf(t -> t.getId().equals(transactionId));
 	}
 
 	@Override
