@@ -98,6 +98,14 @@ public class TransactionRepositoryImpl implements TransactionRepository,
 		return transaction;
 	}
 	
+
+	@Override
+	public void update( Transaction transaction) {	
+	transactions.stream().filter( t -> t.getId().equals(transaction.getId())).findFirst().map(t -> transaction);
+	
+	}
+	
+	
 	/**
 	 * Get the id of new transaction.
 	 *

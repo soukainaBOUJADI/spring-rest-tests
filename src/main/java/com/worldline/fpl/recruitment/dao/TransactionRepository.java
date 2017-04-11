@@ -67,4 +67,11 @@ public interface TransactionRepository {
 	 * 		    the transaction
 	 */
 	Transaction save(Transaction transaction);
+	
+	/**
+	 * Update the transaction
+	 *
+	 * @param transaction the transaction
+	 */
+	void update(Transaction transaction);
 }

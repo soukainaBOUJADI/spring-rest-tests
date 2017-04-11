@@ -83,4 +83,24 @@ public interface TransactionController {
 	
 	
 
+	/**
+	 * Update transaction.
+	 *
+	 * @param accountId the account id
+	 * @param transactionId the transaction id
+	 * @param transaction the transaction
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/{transactionId}", method = RequestMethod.PUT)
+	@ApiOperation(value = "update transaction related to an account", response = Void.class)
+	@ApiResponses({
+		    @ApiResponse(code = 404, message = "Transaction not Found Or Account not found", response = ErrorResponse.class),
+			@ApiResponse(code = 400, message = "Invalid Transaction", response = ErrorResponse.class),
+			@ApiResponse(code = 403, message = "Transaction not belong to the account", response = ErrorResponse.class),})
+	ResponseEntity<Void> updateTransaction(
+			@ApiParam("Account ID") @PathVariable("accountId") String accountId,
+			@ApiParam("Transaction ID") @PathVariable("transactionId") String transactionId,
+			@ApiParam("Transaction") @RequestBody Transaction transaction);
+	
+	
 }

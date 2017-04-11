@@ -57,7 +57,6 @@ public class TransactionControllerImpl implements TransactionController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
 
-
 	@Override
 	public ResponseEntity<TransactionResponse> addTransactionToAccount(
 			@PathVariable("accountId") String accountId,
@@ -67,4 +66,15 @@ public class TransactionControllerImpl implements TransactionController {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdTransaction);
 	}
+	
+	@Override
+	public ResponseEntity<Void> updateTransaction(
+			@PathVariable String accountId,@PathVariable String transactionId, 
+			@RequestBody Transaction transaction) {
+		
+			this.transactionService.update(accountId, transactionId, transaction);
+		
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+		}
+
 }

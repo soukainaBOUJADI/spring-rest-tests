@@ -105,6 +105,34 @@ public class TransactionService {
 	}
 	
 	
+	  public void update(String accountId,  String transactionId , Transaction transaction){
+			
+			if (!accountService.isAccountExist(accountId)) {
+				throw new ServiceException(ErrorCode.INVALID_ACCOUNT,
+						"The id account "+accountId+" doesn't exist");
+			}
+			if (!transactionRepository.exists(transactionId)) {
+				throw new ServiceException(ErrorCode.INVALID_TRANSACTION,
+						"The id transaction "+transactionId+" doesn't exist");
+			}
+			if (!transactionRepository.transactionBelongToAccount(accountId,transactionId)) {
+				throw new ServiceException(ErrorCode.TRANSACTION_NOT_BELONG_TO_ACCOUNT,
+						"transaction not belong to the account");
+			}
+			if(transaction.getNumber() == null){
+				throw new ServiceException(ErrorCode.INVALID_REQUEST,
+						"Number attribute must not be null");
+			}
+			if(transaction.getBalance() == null){
+				throw new ServiceException(ErrorCode.INVALID_REQUEST,
+						"Balance attribute must not be null");
+			}
+			transaction.setAccountId(accountId);
+			transaction.setId(transactionId);
+			
+		}
+			
+	  
 	/**
 	 * Map {@link Transaction} to {@link TransactionResponse}
 	 * 
